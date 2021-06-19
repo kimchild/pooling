@@ -16,37 +16,42 @@ import com.rest.pooling.exception.RestResponseErrorHandler;
 @Configuration
 public class RestConfig {
 
-	// IP, PORT 하나당 동시 연결 Connection 최대 수
-	@Value("rest.template.max_conn_total")
-	public static int REST_TEMPLATE_MAX_CONN_TOTAL;
-	// 연결 경로별 최대 수
-	@Value("rest.template.max_conn_per_route")
-	public static int REST_TEMPLATE_MAX_CONN_PER_ROUTE;
-	// http keep alive(Connection 연결 유지시간)
-	@Value("rest.template.keep_alive.time_seconds")
-	public static int KEEP_ALIVE_TIME_SECONDS;
-	// 읽기시간 초과 ms
-	@Value("rest.template.factory.read_timeout")
-	public static int REST_TEMPLATE_FACTORY_READ_TIMEOUT;
-	// 연결시간 초과 ms
-	@Value("rest.template.factory.connect_timeout")
-	public static int REST_TEMPLATE_FACTORY_CONNECT_TIMEOUT;
+	// // IP, PORT 하나당 동시 연결 Connection 최대 수
+	// @Value("rest.template.max_conn_total")
+	// public static int REST_TEMPLATE_MAX_CONN_TOTAL = 10000;
+	// // 연결 경로별 최대 수
+	// @Value("rest.template.max_conn_per_route")
+	// public static int REST_TEMPLATE_MAX_CONN_PER_ROUTE = 10000;
+	// // http keep alive(Connection 연결 유지시간)
+	// @Value("rest.template.keep_alive.time_seconds")
+	// public static int KEEP_ALIVE_TIME_SECONDS = 5;
+	// // 읽기시간 초과 ms
+	// @Value("rest.template.factory.read_timeout")
+	// public static int REST_TEMPLATE_FACTORY_READ_TIMEOUT = 4000;
+	// // 연결시간 초과 ms
+	// @Value("rest.template.factory.connect_timeout")
+	// public static int REST_TEMPLATE_FACTORY_CONNECT_TIMEOUT = 5000;
 
 	@Bean
 	RestTemplate restTemplate() {
-		CloseableHttpClient httpClients = HttpClientBuilder.create()
-			.setMaxConnTotal(REST_TEMPLATE_MAX_CONN_TOTAL)
-			.setMaxConnPerRoute(REST_TEMPLATE_MAX_CONN_PER_ROUTE)
-			.setConnectionTimeToLive(KEEP_ALIVE_TIME_SECONDS, TimeUnit.SECONDS)
-			.build();
-
-		HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-		httpRequestFactory.setReadTimeout(REST_TEMPLATE_FACTORY_READ_TIMEOUT);
-		httpRequestFactory.setConnectTimeout(REST_TEMPLATE_FACTORY_CONNECT_TIMEOUT);
-		httpRequestFactory.setHttpClient(httpClients);
-
-		return new RestTemplateBuilder()
-			.errorHandler(new RestResponseErrorHandler())
-			.build();
+		return new RestTemplate();
 	}
+
+	// @Bean
+	// RestTemplate restTemplate() {
+	// 	CloseableHttpClient httpClients = HttpClientBuilder.create()
+	// 		.setMaxConnTotal(REST_TEMPLATE_MAX_CONN_TOTAL)
+	// 		.setMaxConnPerRoute(REST_TEMPLATE_MAX_CONN_PER_ROUTE)
+	// 		.setConnectionTimeToLive(KEEP_ALIVE_TIME_SECONDS, TimeUnit.SECONDS)
+	// 		.build();
+	//
+	// 	HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+	// 	httpRequestFactory.setReadTimeout(REST_TEMPLATE_FACTORY_READ_TIMEOUT);
+	// 	httpRequestFactory.setConnectTimeout(REST_TEMPLATE_FACTORY_CONNECT_TIMEOUT);
+	// 	httpRequestFactory.setHttpClient(httpClients);
+	//
+	// 	return new RestTemplateBuilder()
+	// 		.errorHandler(new RestResponseErrorHandler())
+	// 		.build();
+	// }
 }
