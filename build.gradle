@@ -1,0 +1,55 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.1'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'checkstyle'
+}
+
+version = '1.0.0'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+configurations {
+	checkstyleRules
+}
+
+dependencies {
+//	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	implementation 'org.springframework.session:spring-session-core'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//	testImplementation 'org.springframework.security:spring-security-test'
+
+
+	checkstyleRules 'com.github.ngeor:checkstyle-rules:3.3.0'
+
+
+	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+checkstyle {
+	maxWarnings = 0
+	configFile = file("${rootDir}\\naver-checkstyle-rules.xml")
+	configProperties = ["suppressionFile" : "${rootDir}\\naver-checkstyle-suppressions.xml"]
+	toolVersion = "8.24"
+}
