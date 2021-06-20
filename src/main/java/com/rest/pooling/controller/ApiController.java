@@ -9,13 +9,17 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
 @RequestMapping("/test")
+@Slf4j
 public class ApiController {
 
 	private final RestTemplate restTemplate;
@@ -74,5 +78,13 @@ public class ApiController {
 		// return str;
 
 		return str;
+	}
+
+	/**
+	 * ApiController Exception Handler
+	 */
+	@ExceptionHandler(value = Exception.class)
+	public void handleSchedulerError(Exception exception) {
+		log.error("ApiController ERROR : {}", exception.getMessage(), exception);
 	}
 }

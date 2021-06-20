@@ -1,0 +1,9 @@
+rest-template:
+  max-conn-total: 1000
+  max-conn-per-route: 200
+  factory:
+    read-timeout: 4000
+    connect-timeout: 5000
+  keep-alive:
+    time-seconds: 5
+test: abc
