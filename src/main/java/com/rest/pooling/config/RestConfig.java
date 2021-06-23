@@ -32,13 +32,6 @@ public class RestConfig {
 	@Value("${rest-template.factory.connect-timeout}")
 	private int restTemplateFactoryConnectTimeout;
 
-	// @Qualifier("restTemplate")
-	// @Bean
-	// RestTemplate restTemplate() {
-	// 	return new RestTemplate();
-	// }
-
-	// @Qualifier("restTemplatePool")
 	@Bean
 	RestTemplate restTemplatePool() {
 		CloseableHttpClient httpClients = HttpClientBuilder.create()

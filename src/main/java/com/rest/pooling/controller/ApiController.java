@@ -1,6 +1,7 @@
 package com.rest.pooling.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.rest.pooling.ApiService;
+import com.rest.pooling.dto.ResponseBusinessDto;
+
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -23,9 +27,11 @@ import lombok.extern.slf4j.Slf4j;
 public class ApiController {
 
 	private final RestTemplate restTemplate;
+	private final ApiService apiService;
 
-	public ApiController(RestTemplate restTemplate) {
+	public ApiController(RestTemplate restTemplate, ApiService apiService) {
 		this.restTemplate = restTemplate;
+		this.apiService = apiService;
 	}
 
 	private static boolean isFirst = true;
@@ -73,11 +79,20 @@ public class ApiController {
 		//
 		String str = response.getBody();
 
-		// System.out.println("start : " + map.get("start"));
-		// System.out.println("end : " + map.get("end"));
-		// return str;
-
 		return str;
+	}
+
+	@GetMapping("/api/data")
+	public Map testMap() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("name", "asdf");
+		map.put("info", 0);
+		return map;
+	}
+
+	@GetMapping("/api")
+	public ResponseBusinessDto testApi() {
+		return apiService.testApi();
 	}
 
 	/**
