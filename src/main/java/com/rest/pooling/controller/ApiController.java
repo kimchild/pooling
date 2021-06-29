@@ -95,6 +95,11 @@ public class ApiController {
 		return apiService.testApi();
 	}
 
+	@GetMapping("/read")
+	public String read() {
+		return apiService.read();
+	}
+
 	/**
 	 * ApiController Exception Handler
 	 */
