@@ -1,14 +1,12 @@
 package com.rest.pooling.service;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -54,6 +52,7 @@ public class ApiService {
 	}
 
 	public String read() {
+		/*/
 		ClassPathResource resource = new ClassPathResource("pem/iv_pem.pem");
 		StringBuilder readPemText = new StringBuilder();
 		try (BufferedInputStream bf = new BufferedInputStream(resource.getInputStream());
@@ -69,5 +68,15 @@ public class ApiService {
 			log.error(e.getMessage());
 		}
 		return readPemText.toString();
+		/**/
+
+		StringBuilder sb = new StringBuilder();
+		try {
+			List<String> lines = Files.readAllLines(Paths.get("src/main/resources/pem/iv_pem.pem"));
+			lines.forEach(sb::append);
+		} catch (IOException e) {
+			log.error(e.getMessage());
+		}
+		return sb.toString();
 	}
 }
