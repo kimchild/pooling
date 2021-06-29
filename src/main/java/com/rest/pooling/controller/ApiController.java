@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.rest.pooling.ApiService;
 import com.rest.pooling.dto.ResponseBusinessDto;
+import com.rest.pooling.service.ApiService;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,7 +1,8 @@
-package com.rest.pooling;
+package com.rest.pooling.service;
 
 import java.util.Map;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -26,6 +27,7 @@ public class ApiService {
 		this.mapper = mapper;
 	}
 
+	@Cacheable("test-api")
 	public ResponseBusinessDto testApi() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
